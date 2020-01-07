@@ -3,7 +3,13 @@ import React from 'react';
 function Input (props){
   return(
     <>
-      <input id={props.id} type={props.type} placeholder={props.placeholder} onChange={props.onChange}></input>
+      <input 
+        className={props.className} 
+        id={props.id} type={props.type} 
+        class={props.class} value={props.value} 
+        placeholder={props.placeholder} 
+        onChange={props.handleChange} >
+      </input>
     </>
   )
 }
