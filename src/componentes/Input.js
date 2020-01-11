@@ -9,6 +9,7 @@ function Input (props){
         class={props.class} value={props.value} 
         placeholder={props.placeholder} 
         onChange={props.handleChange} >
+          {props.id}
       </input>
     </>
   )

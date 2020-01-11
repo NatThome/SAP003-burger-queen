@@ -5,8 +5,9 @@ function MenuCard (props){
     <section 
       className={props.className}
       onClick={props.handleClick}>
-      <p>{props.name}</p>
-      <p>{props.price}</p> 
+      <span>{props.name}</span>
+      <span>R$ {props.price},00</span> 
+      {props.id}
     </section>
   )
 }
