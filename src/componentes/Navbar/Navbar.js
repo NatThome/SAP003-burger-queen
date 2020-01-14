@@ -9,7 +9,7 @@ const Navbar = () => {
       <img className={css(styles.logo)} src={logobq} alt="Logotipo" />
       <div>
         <nav className={css(styles.nav)}>
-          <Link className={css(styles.colorNav)} to='/lounge' >Salão</Link>
+          <Link className={css(styles.colorNav)} to='/' >Salão</Link>
           <Link className={css(styles.colorNav)} to='/kitchen'>Cozinha</Link>
           <Link className={css(styles.colorNav)} to='/delivery'>Delivery</Link>
         </nav>
