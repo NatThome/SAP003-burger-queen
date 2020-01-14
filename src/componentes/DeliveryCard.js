@@ -2,17 +2,18 @@ import React from "react";
 import Button from '../componentes/Button';
 import { StyleSheet, css } from 'aphrodite';
 
-function KitchenCard(props) {
+function DeliveryCard(props) {
 
-  const includeOrder = props.includeOrder;
+  const deliveryOrder = props.deliveryOrder;
 
   return (
-    <div className={css(styles.divGeral)}>
+    <div className={css(styles.divCardDelivery)}>
       <section >
-        {includeOrder.map((personalOrder) => (
-          <div key={personalOrder.id} className={css(styles.cardKitchen)}>
+        {deliveryOrder.map((personalOrder) => (
+          <div key={personalOrder.id} className={css(styles.cardDelivery)}>
             <span className={css(styles.status)}>{personalOrder.status}</span>
-            <span>Mesa: {personalOrder.table} | Cliente: {personalOrder.name}</span>
+            <span>Mesa: {personalOrder.table}</span>
+            <span>Cliente: {personalOrder.name}</span>
             <span>Pedido: {personalOrder.pedido.map((itens) => (
               <p>{itens.count} x {itens.name}</p>
             ))}</span>
@@ -22,7 +23,7 @@ function KitchenCard(props) {
                 e.preventDefault();
                 props.changeStatus(personalOrder);
               }}
-              name={'Pronto'} />
+              name={'Entregue'} />
           </div>
         ))}
       </section>
@@ -30,23 +31,22 @@ function KitchenCard(props) {
   )
 }
 
-export default KitchenCard;
+export default DeliveryCard;
 
 const styles = StyleSheet.create({
-  divGeral: {
+  divCardDelivery: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
-  cardKitchen: {
+  cardDelivery: {
     margin: '10px',
     padding: '10px',
     width: '300px',
     height: '270px',
     background: '#F9AB55',
-    fontSize: '110%',
+    fontSize: '100%',
     color: '#7A4991',
-    textAlign: 'start',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
   },
   btnPronto: {
     width: '140px',
-    height: '40px',
+    height: '30px',
     margin: '10px',
     background: '#7A4991',
-    fontSize: '100%',
+    fontSize: '90%',
     color: 'white',
     borderRadius: '15px',
     border: 'none',

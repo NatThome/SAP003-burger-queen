@@ -1,62 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../componentes/firebase/firebase';
 import KitchenCard from '../componentes/KitchenCard';
+import HistoricCard from '../componentes/HistoricCard';
+import { StyleSheet, css } from 'aphrodite';
 
 function Kitchen() {
 
   const [includeOrder, setIncludeOrder] = useState([]);
-
-  console.log(includeOrder);
-    
+  const [doneOrder, setDoneOrder] = useState([]);
 
   useEffect(() => {
     firebase.firestore().collection('pedidos')
-      .where('status', '==', 'Preparando')
-      .get()
-      .then(snapshot => {
+      .orderBy('time', 'asc')
+      .onSnapshot((snapshot) => {
         const printOrder = snapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data() 
-      }))
-      //console.log(id)
-     
-      setIncludeOrder(printOrder);
-    })
-    }, [0]);
+          ...doc.data()
+        }))
+        setIncludeOrder(printOrder.filter((includeOrder) => includeOrder.status === 'Preparando'));
 
-   
-
-   
-    const changeStatus = () => {
-      console.log(includeOrder.id);
-      
-      firebase.firestore.collection('pedidos')
-      .doc(changeStatus.id)
-      .update({
-          status: 'Pendente',
+        const historic = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data()
+        }))
+        setDoneOrder(historic.filter((includeOrder) => includeOrder.status === 'Pronto para entrega' || includeOrder.status === 'Entregue'));
       })
-    }
-    
-    
+  }, []);
+
+  const changeStatus = (order) => {
+    firebase.firestore().collection('pedidos')
+      .doc(order.id)
+      .update({
+        status: 'Pronto para entrega',
+        time2: new Date().getTime(),
+        delivery: 'Entrega pendente',
+      })
+  }
 
   return (
     <>
-      <h1>Cozinha</h1>
-      <h2>PEDIDOS ENCAMINHADOS</h2>
-      <div >
-          {includeOrder.map((item) => 
-            <KitchenCard 
-              changeStatus={changeStatus}
-               name={item.name} 
-               table={item.table}
-               pedido={item.pedido}
-               status={item.status}
-               time={item.time}
-               key={item.id}
-              /> 
-          )}
+      <div className={css(styles.divGeral)}>
+        <div className={css(styles.divMenu)}>
+          <h2 >AGUARDANDO PREPARO</h2>
+          <KitchenCard
+            includeOrder={includeOrder}
+            changeStatus={changeStatus}
+          />
         </div>
+        <div className={css(styles.divDone)}>
+          <h3>HISTÓRICO</h3>
+          <HistoricCard
+            doneOrder={doneOrder}
+          />
+        </div>
+      </div>
     </>
   )
 }
 export default Kitchen;
+
+
+const styles = StyleSheet.create({
+  divGeral: {
+    display: 'flex',
+    borderTop: '2px solid black',
+    padding: '14px',
+  },
+  divMenu: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '60vw',
+    padding: '14px',
+    marginTop: '10px',
+  },
+  divDone: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '40vw',
+    padding: '14px',
+    marginTop: '10px',
+    border: 'solid 2px',
+    background: '#C0C0C0',
+    opacity: '70%',
+  },
+
+})
