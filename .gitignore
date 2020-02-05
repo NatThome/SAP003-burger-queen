@@ -6,6 +6,9 @@
 .pnp.js
 /.firebase
 /componentes/firebase/firebase
+/firebase.json
+/firebase.rules
+/firebase.indexes.json
 
 # testing
 /coverage
