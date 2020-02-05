@@ -26,13 +26,8 @@ function Lounge() {
   }, [0]);
 
   function filterMenu(tipoMenu) {
-    if (tipoMenu === 'lunch') {
-      const filtered = menu.filter((item) => item.category === "lunch")
-      setTipoMenu(filtered);
-    } else if (tipoMenu === 'breakfast') {
-      const filtered = menu.filter((item) => item.category === "breakfast")
-      setTipoMenu(filtered);
-    }
+    const filtered = menu.filter((item) => item.category === tipoMenu);
+    setTipoMenu(filtered);
   }
 
   const total = pedido.reduce((acumulator, item) => acumulator + (item.price * item.count), 0);
@@ -214,7 +209,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '50vw',
+    width: 'fit-content',
+    height: 'fit-content',
     padding: '14px',
     marginTop: '10px',
     border: 'solid 2px',

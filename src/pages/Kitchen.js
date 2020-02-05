@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '40vw',
+    width: 'fit-content',
     padding: '14px',
     marginTop: '10px',
     border: 'solid 2px',

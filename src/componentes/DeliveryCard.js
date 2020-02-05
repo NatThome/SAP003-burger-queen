@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite';
 
 function DeliveryCard(props) {
 
-  const deliveryOrder = props.deliveryOrder;
+  const { deliveryOrder } = props;
 
   return (
     <div className={css(styles.divCardDelivery)}>
@@ -36,14 +36,14 @@ export default DeliveryCard;
 const styles = StyleSheet.create({
   divCardDelivery: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   cardDelivery: {
     margin: '10px',
     padding: '10px',
     width: '300px',
-    height: '270px',
+    height: 'fit-content',
     background: '#F9AB55',
     fontSize: '100%',
     color: '#7A4991',
